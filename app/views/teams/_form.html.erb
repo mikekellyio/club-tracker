@@ -1,21 +1,31 @@
-<%= form_for(@team) do |f| %>
+<%= simple_nested_form_for(@team, html: { class: "" }) do |f| %>
   <% if @team.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h4>
 
       <ul>
-      <% @team.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% @team.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.input :name %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.fields_for :children do |ff| %>
+      <% if ff.object.persisted? %>
+        <%= ff.object.name %>
+      <% else %>
+        <%= ff.input :first_name %>
+        <%= ff.input :last_name %>
+      <% end %>
+      <%= ff.link_to_remove "Remove this child" %>
+    <% end %>
+    <p><%= f.link_to_add "Add a child", :children %></p>
   </div>
+  <%= f.submit :class => "btn btn-primary" %>
 <% end %>

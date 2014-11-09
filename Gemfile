@@ -37,7 +37,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem "omniauth-google-oauth2"
 
-gem 'simple_form'
+gem 'simple_form', '~> 3.1.rc2'
+gem "nested_form"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -48,6 +49,8 @@ gem 'simple_form'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'better_errors'
+  gem "binding_of_caller"
   gem 'debugger'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
