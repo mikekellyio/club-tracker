@@ -41,6 +41,6 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, {children_attributes: [:first_name, :last_name]})
     end
 end
