@@ -1,0 +1,23 @@
+<div class="page-header">
+  <%= link_to book_path(@section.book), :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_section_path(@section), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1><%= @section.name.to_s.titleize %></h1>
+</div>
+
+<% if @section.sub_sections.present? %>
+  <ul class="list-unstyled">
+    <% @book.sub_sections.each do |s| %>
+      <li>
+        <%= link_to s.name, sub_section_path(s) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="text-muted">No sub-sections have been added yet</p>
+<% end %>

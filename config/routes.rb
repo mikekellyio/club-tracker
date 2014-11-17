@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :sub_sections
+
+  resources :sections
+
+  resources :books
+
   resources :children
 
   resources :teams

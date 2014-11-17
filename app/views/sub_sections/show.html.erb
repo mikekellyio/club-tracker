@@ -1,0 +1,23 @@
+<div class="page-header">
+  <%= link_to sub_sections_path, :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_sub_section_path(@sub_section), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show sub_section</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @sub_section.name %></dd>
+
+  <dt>Description:</dt>
+  <dd><%= @sub_section.description %></dd>
+
+  <dt>Section:</dt>
+  <dd><%= @sub_section.section_id %></dd>
+
+</dl>

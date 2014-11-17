@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102220543) do
+ActiveRecord::Schema.define(version: 20141116221119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "books", force: true do |t|
+    t.string   "name"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "children", force: true do |t|
     t.string   "first_name"
@@ -33,6 +40,21 @@ ActiveRecord::Schema.define(version: 20141102220543) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "sections", force: true do |t|
+    t.string   "name"
+    t.integer  "book_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sub_sections", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "teams", force: true do |t|
     t.string   "name"
