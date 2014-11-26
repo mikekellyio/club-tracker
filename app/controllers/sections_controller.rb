@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
-  
+
   def index
     @sections = Section.all
     respond_with(@sections)
@@ -41,6 +41,12 @@ class SectionsController < ApplicationController
     end
 
     def section_params
-      params.require(:section).permit(:name, :book_id)
+      params.require(:section).permit(
+          :name,
+          :book_id,
+          :position,
+          {sub_sections_attributes:
+              [:name, :decription, :position]}
+          )
     end
 end

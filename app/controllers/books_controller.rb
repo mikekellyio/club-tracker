@@ -41,6 +41,6 @@ class BooksController < ApplicationController
     end
 
     def book_params
-      params.require(:book).permit(:name, {sections_attributes: [:name]})
+      params.require(:book).permit(:name, {sections_attributes: [:name, :position]})
     end
 end

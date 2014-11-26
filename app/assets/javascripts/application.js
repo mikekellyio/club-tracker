@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.ui.all
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery_nested_form

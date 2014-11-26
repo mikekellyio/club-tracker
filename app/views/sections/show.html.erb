@@ -11,13 +11,13 @@
 </div>
 
 <% if @section.sub_sections.present? %>
-  <ul class="list-unstyled">
-    <% @book.sub_sections.each do |s| %>
+  <ol class="">
+    <% @section.sub_sections.each do |s| %>
       <li>
         <%= link_to s.name, sub_section_path(s) %>
       </li>
     <% end %>
-  </ul>
+  </ol>
 <% else %>
   <p class="text-muted">No sub-sections have been added yet</p>
 <% end %>
