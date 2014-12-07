@@ -1,4 +1,10 @@
-class Identity < ActiveRecord::Base
+class Identity
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :provider, type: String
+  field :uid,      type: String
+
   belongs_to :user
   validates_presence_of :uid, :provider
   validates_uniqueness_of :uid, :scope => :provider

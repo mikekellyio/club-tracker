@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require "action_controller/railtie"
+require "action_mailer/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -21,6 +22,8 @@ module Awana
     # config.i18n.default_locale = :de
     config.generators do |g|
       g.test_framework :rspec
+      g.view_specs false
+      g.helper_specs false
     end
   end
 end

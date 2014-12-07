@@ -1,4 +1,11 @@
-class Team < ActiveRecord::Base
+class Team
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  embedded_in :club
+
+  field :name, type: String, default: "Team"
+
   validates_presence_of :name
 
   has_many :children

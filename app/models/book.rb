@@ -1,15 +1,14 @@
-class Book < ActiveRecord::Base
-  has_many :sections, -> { order("position ASC") }
+class Book
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :name, type: String, default: "Book"
+
+  embeds_many :sections
   accepts_nested_attributes_for :sections
 
-  has_many :associated_children,
-           class_name: "AssociatedBook"
-  has_many :completed_associated_children,
-           class_name: "AssociatedBook",
-           -> { where completed: true}
-
-  has_many :children,
-           through: :associated_children
-  has_many :children_who_have_completed,
-           through: :completed_associated_children
+  has_and_belongs_to_many :children
+  has_and_belongs_to_many :children_who_have_completed,
+           class_name: "Child",
+           inverse_of: "completed_books"
 end
