@@ -1,8 +1,8 @@
-class SubSectionProgress
+class CompletedSubsection
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  embedded_in :section_progress
+  embedded_in :completed_section
   belongs_to :sub_section
 
   validates_presence_of :sub_section

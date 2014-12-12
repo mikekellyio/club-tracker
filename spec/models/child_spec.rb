@@ -17,8 +17,8 @@ RSpec.describe Child, :type => :model do
       expect {child.complete_next!}.to raise_error
     end
 
-    context "when no SectionProgress" do
-      it "creates a new SectionProgress" do
+    context "when no CompletedSection" do
+      it "creates a new CompletedSection" do
         child.current_book = Book.new()
         child.current_book.sections << Section.new(name: "red 1")
         expect {
@@ -27,7 +27,7 @@ RSpec.describe Child, :type => :model do
       end
     end
 
-    context "when SectionProgress#complete_next! is nil" do
+    context "when CompletedSection#complete_next! is nil" do
       it "adds the completed section to its list" do
         child.current_book = Book.new()
         last_section = Section.new(name: "green 1")
@@ -40,7 +40,7 @@ RSpec.describe Child, :type => :model do
           child.complete_next!
         }.to change {child.completed_sections.size}.by 1
       end
-      context "when SectionProgress#get_next is nil" do
+      context "when CompletedSection#get_next is nil" do
         it "adds the completed book to its list" do
           child.current_book = Book.new()
           child.current_book.sections << Section.new(name: "red 1")

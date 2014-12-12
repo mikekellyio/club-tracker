@@ -1,12 +1,11 @@
-class SectionProgress
+class CompletedSection
   include Mongoid::Document
   include Mongoid::Timestamps
 
   embedded_in :child
   belongs_to :section
 
-  embeds_many :completed_subsections,
-    class_name: "SubSectionProgress"
+  embeds_many :completed_subsections
 
   validates_presence_of :section
 

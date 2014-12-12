@@ -16,8 +16,7 @@ class Child
           class_name: "Book",
           inverse_of: "children_who_have_completed"
 
-  embeds_many :completed_sections,
-          class_name: "SectionProgress"
+  embeds_many :completed_sections
 
   def name
     "#{first_name} #{last_name}"
