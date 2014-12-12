@@ -11,7 +11,7 @@ class SectionProgress
   validates_presence_of :section
 
   def get_next
-    section.next_items.first
+    section.next_item
   end
 
   def complete_next!

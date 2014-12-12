@@ -17,6 +17,6 @@ class Book
            inverse_of: "completed_books"
 
   def get_next
-    next_items.first
+    next_item
   end
 end

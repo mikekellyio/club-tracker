@@ -8,7 +8,7 @@ class SubSectionProgress
   validates_presence_of :sub_section
 
   def get_next
-    sub_section.next_items.first
+    sub_section.next_item
   end
 
   def name
