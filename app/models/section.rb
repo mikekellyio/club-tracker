@@ -1,12 +1,14 @@
 class Section
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+  include Mongoid::Orderable
+
   field :name, type: String, default: "Section"
 
-  embedded_in :book
+  belongs_to :book
 
-  embeds_many :sub_sections
+  has_many :sub_sections
+
   accepts_nested_attributes_for :sub_sections
   orderable
 

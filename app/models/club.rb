@@ -2,7 +2,7 @@ class Club
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  embeds_many :children
+  has_many :children
   embeds_many :teams
 
   field :name, type: String
