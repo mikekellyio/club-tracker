@@ -41,6 +41,6 @@ class ChildrenController < ApplicationController
     end
 
     def child_params
-      params[:child]
+      params.fetch(:child, {}).permit(:first_name, :last_name)
     end
 end

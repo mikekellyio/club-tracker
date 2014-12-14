@@ -3,12 +3,13 @@ class Section
   include Mongoid::Timestamps
   include Mongoid::Orderable
 
-  field :name, type: String, default: "Section"
+  field :name, type: String
 
   belongs_to :book
 
   has_many :sub_sections
 
+  validates_presence_of :name, :book
   accepts_nested_attributes_for :sub_sections
   orderable
 

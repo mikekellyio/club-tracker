@@ -8,4 +8,8 @@ class SubSection
 
   belongs_to :section
   orderable
+
+  def name
+    read_attribute(:name).blank? ? position : read_attribute(:name)
+  end
 end

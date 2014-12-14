@@ -19,16 +19,22 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe SectionsController, :type => :controller do
+  before do
+    Section.delete_all
+    Book.delete_all
+    sign_in
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Section. As you add validations to Section, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    book = Book.create
+    {name: "red 1", book_id: book.id}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -37,9 +43,10 @@ RSpec.describe SectionsController, :type => :controller do
   let(:valid_session) { {} }
 
   describe "GET index" do
+    let(:book) { Book.create }
     it "assigns all sections as @sections" do
       section = Section.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {book_id: section.book}, valid_session
       expect(assigns(:sections)).to eq([section])
     end
   end
@@ -54,7 +61,8 @@ RSpec.describe SectionsController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new section as @section" do
-      get :new, {}, valid_session
+      book = Book.create
+      get :new, {book_id: book.id}, valid_session
       expect(assigns(:section)).to be_a_new(Section)
     end
   end
@@ -68,33 +76,34 @@ RSpec.describe SectionsController, :type => :controller do
   end
 
   describe "POST create" do
+    let(:book) { Book.create }
     describe "with valid params" do
       it "creates a new Section" do
         expect {
-          post :create, {:section => valid_attributes}, valid_session
+          post :create, {book_id: book.id, section: valid_attributes}, valid_session
         }.to change(Section, :count).by(1)
       end
 
       it "assigns a newly created section as @section" do
-        post :create, {:section => valid_attributes}, valid_session
+        post :create, {book_id: book.id, section: valid_attributes}, valid_session
         expect(assigns(:section)).to be_a(Section)
         expect(assigns(:section)).to be_persisted
       end
 
       it "redirects to the created section" do
-        post :create, {:section => valid_attributes}, valid_session
+        post :create, {book_id: book.id, section: valid_attributes}, valid_session
         expect(response).to redirect_to(Section.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved section as @section" do
-        post :create, {:section => invalid_attributes}, valid_session
+        post :create, {book_id: book.id, section: invalid_attributes}, valid_session
         expect(assigns(:section)).to be_a_new(Section)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:section => invalid_attributes}, valid_session
+        post :create, {book_id: book.id, section: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,14 +112,14 @@ RSpec.describe SectionsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: "new name"}
       }
 
       it "updates the requested section" do
         section = Section.create! valid_attributes
         put :update, {:id => section.to_param, :section => new_attributes}, valid_session
         section.reload
-        skip("Add assertions for updated state")
+        expect(section.name).to eq "new name"
       end
 
       it "assigns the requested section as @section" do
@@ -132,12 +141,6 @@ RSpec.describe SectionsController, :type => :controller do
         put :update, {:id => section.to_param, :section => invalid_attributes}, valid_session
         expect(assigns(:section)).to eq(section)
       end
-
-      it "re-renders the 'edit' template" do
-        section = Section.create! valid_attributes
-        put :update, {:id => section.to_param, :section => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
     end
   end
 
@@ -152,7 +155,7 @@ RSpec.describe SectionsController, :type => :controller do
     it "redirects to the sections list" do
       section = Section.create! valid_attributes
       delete :destroy, {:id => section.to_param}, valid_session
-      expect(response).to redirect_to(sections_url)
+      expect(response).to redirect_to(book_sections_url(section.book))
     end
   end
 

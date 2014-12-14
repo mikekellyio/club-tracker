@@ -19,12 +19,16 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe BooksController, :type => :controller do
+  before do
+    sign_in
+    Book.delete_all
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Book. As you add validations to Book, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: "book"}
   }
 
   let(:invalid_attributes) {

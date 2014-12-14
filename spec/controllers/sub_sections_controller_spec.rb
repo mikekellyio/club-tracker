@@ -19,12 +19,18 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe SubSectionsController, :type => :controller do
+  before do
+    [Book, Section, SubSection].map &:delete_all
+    sign_in
+  end
 
+  let(:book) {Book.create}
+  let(:section) {Section.create book: book, name: "name"}
   # This should return the minimal set of attributes required to create a valid
   # SubSection. As you add validations to SubSection, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: "1"}
   }
 
   let(:invalid_attributes) {
@@ -38,15 +44,15 @@ RSpec.describe SubSectionsController, :type => :controller do
 
   describe "GET index" do
     it "assigns all sub_sections as @sub_sections" do
-      sub_section = SubSection.create! valid_attributes
-      get :index, {}, valid_session
+      sub_section = section.sub_sections.create! valid_attributes
+      get :index, {section_id: section.id}, valid_session
       expect(assigns(:sub_sections)).to eq([sub_section])
     end
   end
 
   describe "GET show" do
     it "assigns the requested sub_section as @sub_section" do
-      sub_section = SubSection.create! valid_attributes
+      sub_section = section.sub_sections.create! valid_attributes
       get :show, {:id => sub_section.to_param}, valid_session
       expect(assigns(:sub_section)).to eq(sub_section)
     end
@@ -54,14 +60,14 @@ RSpec.describe SubSectionsController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new sub_section as @sub_section" do
-      get :new, {}, valid_session
+      get :new, {section_id: section.id}, valid_session
       expect(assigns(:sub_section)).to be_a_new(SubSection)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested sub_section as @sub_section" do
-      sub_section = SubSection.create! valid_attributes
+      sub_section = section.sub_sections.create! valid_attributes
       get :edit, {:id => sub_section.to_param}, valid_session
       expect(assigns(:sub_section)).to eq(sub_section)
     end
@@ -71,30 +77,30 @@ RSpec.describe SubSectionsController, :type => :controller do
     describe "with valid params" do
       it "creates a new SubSection" do
         expect {
-          post :create, {:sub_section => valid_attributes}, valid_session
+          post :create, {section_id: section.id, :sub_section => valid_attributes}, valid_session
         }.to change(SubSection, :count).by(1)
       end
 
       it "assigns a newly created sub_section as @sub_section" do
-        post :create, {:sub_section => valid_attributes}, valid_session
+        post :create, {section_id: section.id, :sub_section => valid_attributes}, valid_session
         expect(assigns(:sub_section)).to be_a(SubSection)
         expect(assigns(:sub_section)).to be_persisted
       end
 
       it "redirects to the created sub_section" do
-        post :create, {:sub_section => valid_attributes}, valid_session
+        post :create, {section_id: section.id, :sub_section => valid_attributes}, valid_session
         expect(response).to redirect_to(SubSection.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved sub_section as @sub_section" do
-        post :create, {:sub_section => invalid_attributes}, valid_session
+        post :create, {section_id: section.id, :sub_section => invalid_attributes}, valid_session
         expect(assigns(:sub_section)).to be_a_new(SubSection)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:sub_section => invalid_attributes}, valid_session
+        post :create, {section_id: section.id, :sub_section => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -107,20 +113,20 @@ RSpec.describe SubSectionsController, :type => :controller do
       }
 
       it "updates the requested sub_section" do
-        sub_section = SubSection.create! valid_attributes
+        sub_section = section.sub_sections.create! valid_attributes
         put :update, {:id => sub_section.to_param, :sub_section => new_attributes}, valid_session
         sub_section.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested sub_section as @sub_section" do
-        sub_section = SubSection.create! valid_attributes
+        sub_section = section.sub_sections.create! valid_attributes
         put :update, {:id => sub_section.to_param, :sub_section => valid_attributes}, valid_session
         expect(assigns(:sub_section)).to eq(sub_section)
       end
 
       it "redirects to the sub_section" do
-        sub_section = SubSection.create! valid_attributes
+        sub_section = section.sub_sections.create! valid_attributes
         put :update, {:id => sub_section.to_param, :sub_section => valid_attributes}, valid_session
         expect(response).to redirect_to(sub_section)
       end
@@ -128,13 +134,13 @@ RSpec.describe SubSectionsController, :type => :controller do
 
     describe "with invalid params" do
       it "assigns the sub_section as @sub_section" do
-        sub_section = SubSection.create! valid_attributes
+        sub_section = section.sub_sections.create! valid_attributes
         put :update, {:id => sub_section.to_param, :sub_section => invalid_attributes}, valid_session
         expect(assigns(:sub_section)).to eq(sub_section)
       end
 
       it "re-renders the 'edit' template" do
-        sub_section = SubSection.create! valid_attributes
+        sub_section = section.sub_sections.create! valid_attributes
         put :update, {:id => sub_section.to_param, :sub_section => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -143,16 +149,16 @@ RSpec.describe SubSectionsController, :type => :controller do
 
   describe "DELETE destroy" do
     it "destroys the requested sub_section" do
-      sub_section = SubSection.create! valid_attributes
+      sub_section = section.sub_sections.create! valid_attributes
       expect {
         delete :destroy, {:id => sub_section.to_param}, valid_session
       }.to change(SubSection, :count).by(-1)
     end
 
     it "redirects to the sub_sections list" do
-      sub_section = SubSection.create! valid_attributes
+      sub_section = section.sub_sections.create! valid_attributes
       delete :destroy, {:id => sub_section.to_param}, valid_session
-      expect(response).to redirect_to(sub_sections_url)
+      expect(response).to redirect_to(section_sub_sections_url(section))
     end
   end
 

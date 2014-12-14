@@ -1,0 +1,13 @@
+<div class="page-header">
+  <%= link_to completed_sections_path, :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to @completed_section, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Show
+  <% end %>
+  <h1>Editing completed_section</h1>
+</div>
+
+<%= render 'form' %>

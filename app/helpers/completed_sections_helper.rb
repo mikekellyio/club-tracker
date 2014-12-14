@@ -1,0 +1,2 @@
+module CompletedSectionsHelper
+end

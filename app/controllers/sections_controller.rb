@@ -3,7 +3,7 @@ class SectionsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @sections = Section.all
+    @sections = book.sections
     respond_with(@sections)
   end
 
@@ -20,7 +20,7 @@ class SectionsController < ApplicationController
   end
 
   def create
-    @section = Section.new(section_params)
+    @section = book.sections.new(section_params)
     @section.save
     respond_with(@section)
   end
@@ -32,7 +32,7 @@ class SectionsController < ApplicationController
 
   def destroy
     @section.destroy
-    respond_with(@section)
+    respond_with(@section, location: book_sections_url(@section.book))
   end
 
   private
@@ -40,8 +40,16 @@ class SectionsController < ApplicationController
       @section = Section.find(params[:id])
     end
 
+    def book_id
+      params.require(:book_id)
+    end
+
+    def book
+      @book ||= Book.find(book_id)
+    end
+
     def section_params
-      params.require(:section).permit(
+      params.fetch(:section, {}).permit(
           :name,
           :book_id,
           :position,

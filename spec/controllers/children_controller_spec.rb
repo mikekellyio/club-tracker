@@ -19,16 +19,20 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ChildrenController, :type => :controller do
+  before do
+    sign_in
+    Child.delete_all
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Child. As you add validations to Child, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {first_name: "first", last_name:"last"}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {first_name: nil, last_name: nil}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,7 +107,7 @@ RSpec.describe ChildrenController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {first_name: "new first", last_name: "new last"}
       }
 
       it "updates the requested child" do

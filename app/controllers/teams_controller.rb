@@ -3,41 +3,45 @@ class TeamsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @teams = Team.all
-    respond_with(@teams)
+    @teams = club.teams.all
+    respond_with([club, @team])
   end
 
   def show
-    respond_with(@team)
+    respond_with([club, @team])
   end
 
   def new
-    @team = Team.new
-    respond_with(@team)
+    @team = club.teams.new
+    respond_with([club, @team])
   end
 
   def edit
   end
 
   def create
-    @team = Team.new(team_params)
+    @team = club.teams.new(team_params)
     @team.save
-    respond_with(@team)
+    respond_with([club, @team])
   end
 
   def update
     @team.update(team_params)
-    respond_with(@team)
+    respond_with([club, @team])
   end
 
   def destroy
     @team.destroy
-    respond_with(@team)
+    respond_with([club, @team])
   end
 
   private
     def set_team
-      @team = Team.find(params[:id])
+      @team = club.teams.find(params[:id])
+    end
+
+    def club
+      @club ||= Club.where(id: params.require(:club_id)).first
     end
 
     def team_params

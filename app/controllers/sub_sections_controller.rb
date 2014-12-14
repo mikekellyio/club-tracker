@@ -1,8 +1,9 @@
 class SubSectionsController < ApplicationController
   before_action :set_sub_section, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :json
 
   def index
-    @sub_sections = SubSection.all
+    @sub_sections = section.sub_sections.all
     respond_with(@sub_sections)
   end
 
@@ -31,12 +32,16 @@ class SubSectionsController < ApplicationController
 
   def destroy
     @sub_section.destroy
-    respond_with(@sub_section)
+    respond_with([@sub_section.section, @sub_section])
   end
 
   private
     def set_sub_section
       @sub_section = SubSection.find(params[:id])
+    end
+
+    def section
+      @section ||= Section.where(id: params.require(:section_id)).first
     end
 
     def sub_section_params

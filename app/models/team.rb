@@ -4,7 +4,7 @@ class Team
 
   embedded_in :club
 
-  field :name, type: String, default: "Team"
+  field :name, type: String
 
   validates_presence_of :name
 
