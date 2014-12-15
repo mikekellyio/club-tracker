@@ -23,7 +23,7 @@ class CompletedSectionsController < ApplicationController
 
   # GET /children/:child_id/completed_sections/new
   def new
-    @completed_section = child.completed_sections.new
+    @completed_section = child.completed_sections.new section: child.get_next_section
   end
 
   # GET /children/:child_id/completed_sections/1/edit
@@ -33,7 +33,7 @@ class CompletedSectionsController < ApplicationController
   # POST /children/:child_id/completed_sections
   # POST /children/:child_id/completed_sections.json
   def create
-    @completed_section = child.completed_sections.new(completed_section_params)
+    @completed_section = child.complete_next!
 
     respond_to do |format|
       if @completed_section.save

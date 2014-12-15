@@ -22,6 +22,17 @@ class Child
     "#{first_name} #{last_name}"
   end
 
+  def get_next_section
+    if completed_sections.present?
+      completed_sections.last.get_next
+    else
+      unless current_book.present?
+        self.current_book = Book.first
+      end
+      current_book.sections.first
+    end
+  end
+
   def complete_next!
     raise StandardError, "no current book set" unless current_book.present?
 
@@ -29,12 +40,12 @@ class Child
       completed = completed_sections.last.complete_next!
       if completed.blank?
 
-        next_section = completed_sections.last.get_next
+        next_section = get_next_section
         if next_section.present?
           completed_sections.build(section: next_section)
         else
           self.completed_books << current_book
-          self.current_book = current_book.get_next
+          get_next_section
         end
       end
     else

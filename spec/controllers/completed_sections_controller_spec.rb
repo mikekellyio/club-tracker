@@ -40,7 +40,7 @@ RSpec.describe CompletedSectionsController, :type => :controller do
   }
 
   let(:child) {
-    Child.create first_name: "test", last_name: "child"
+    Child.create first_name: "test", last_name: "child", current_book: book
   }
 
   let(:book) {
