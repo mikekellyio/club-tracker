@@ -63,7 +63,7 @@ class CompletedSectionsController < ApplicationController
     end
 
     def child
-      @child ||= Child.where(id: child_id_params["child_id"]).first
+      @child ||= Child.find(child_id_params["child_id"])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -58,6 +58,12 @@ RSpec.describe CompletedSectionsController, :type => :controller do
       get :index, {}.merge(child_id), valid_session
       expect(assigns(:completed_sections)).to eq([completed_section])
     end
+
+    it "raises an error if the child is not found" do
+      expect {
+        get :index, {child_id: 0}, valid_session
+      }.to raise_error
+    end
   end
 
   describe "GET show" do
