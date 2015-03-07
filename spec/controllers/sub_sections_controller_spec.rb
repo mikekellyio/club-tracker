@@ -34,7 +34,7 @@ RSpec.describe SubSectionsController, :type => :controller do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {invalid: 1}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -94,29 +94,29 @@ RSpec.describe SubSectionsController, :type => :controller do
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved sub_section as @sub_section" do
-        post :create, {section_id: section.id, :sub_section => invalid_attributes}, valid_session
-        expect(assigns(:sub_section)).to be_a_new(SubSection)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {section_id: section.id, :sub_section => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
+      # it "assigns a newly created but unsaved sub_section as @sub_section" do
+      #   post :create, {section_id: section.id, :sub_section => invalid_attributes}, valid_session
+      #   expect(assigns(:sub_section)).to be_a_new(SubSection)
+      # end
+      #
+      # it "re-renders the 'new' template" do
+      #   post :create, {section_id: section.id, :sub_section => invalid_attributes}, valid_session
+      #   expect(response).to render_template("new")
+      # end
     end
   end
 
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: "new_name"}
       }
 
       it "updates the requested sub_section" do
         sub_section = section.sub_sections.create! valid_attributes
         put :update, {:id => sub_section.to_param, :sub_section => new_attributes}, valid_session
         sub_section.reload
-        skip("Add assertions for updated state")
+        expect(sub_section.name).to eq("new_name")
       end
 
       it "assigns the requested sub_section as @sub_section" do
@@ -133,17 +133,17 @@ RSpec.describe SubSectionsController, :type => :controller do
     end
 
     describe "with invalid params" do
-      it "assigns the sub_section as @sub_section" do
-        sub_section = section.sub_sections.create! valid_attributes
-        put :update, {:id => sub_section.to_param, :sub_section => invalid_attributes}, valid_session
-        expect(assigns(:sub_section)).to eq(sub_section)
-      end
-
-      it "re-renders the 'edit' template" do
-        sub_section = section.sub_sections.create! valid_attributes
-        put :update, {:id => sub_section.to_param, :sub_section => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
+      # it "assigns the sub_section as @sub_section" do
+      #   sub_section = section.sub_sections.create! valid_attributes
+      #   put :update, {:id => sub_section.to_param, :sub_section => invalid_attributes}, valid_session
+      #   expect(assigns(:sub_section)).to eq(sub_section)
+      # end
+      #
+      # it "re-renders the 'edit' template" do
+      #   sub_section = section.sub_sections.create! valid_attributes
+      #   put :update, {:id => sub_section.to_param, :sub_section => invalid_attributes}, valid_session
+      #   expect(response).to render_template("edit")
+      # end
     end
   end
 

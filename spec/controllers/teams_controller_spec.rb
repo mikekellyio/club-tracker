@@ -104,14 +104,14 @@ RSpec.describe TeamsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: "new name"}
       }
 
       it "updates the requested team" do
         team = club.teams.create! valid_attributes
         put :update, {club_id: club.id, :id => team.to_param, :team => new_attributes}, valid_session
         team.reload
-        skip("Add assertions for updated state")
+        expect(team.name).to eq("new name")
       end
 
       it "assigns the requested team as @team" do

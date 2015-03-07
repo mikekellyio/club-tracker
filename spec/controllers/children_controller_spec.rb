@@ -114,7 +114,8 @@ RSpec.describe ChildrenController, :type => :controller do
         child = Child.create! valid_attributes
         put :update, {:id => child.to_param, :child => new_attributes}, valid_session
         child.reload
-        skip("Add assertions for updated state")
+        expect(child.first_name).to eq("new first")
+        expect(child.last_name).to eq("new last")
       end
 
       it "assigns the requested child as @child" do
