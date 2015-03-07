@@ -4,16 +4,16 @@ class TeamsController < ApplicationController
 
   def index
     @teams = club.teams.all
-    respond_with([club, @team])
+    respond_with(club, @team)
   end
 
   def show
-    respond_with([club, @team])
+    respond_with(club, @team)
   end
 
   def new
     @team = club.teams.new
-    respond_with([club, @team])
+    respond_with(club, @team)
   end
 
   def edit
@@ -22,17 +22,17 @@ class TeamsController < ApplicationController
   def create
     @team = club.teams.new(team_params)
     @team.save
-    respond_with([club, @team])
+    respond_with(club, @team)
   end
 
   def update
     @team.update(team_params)
-    respond_with([club, @team])
+    respond_with(club, @team)
   end
 
   def destroy
     @team.destroy
-    respond_with([club, @team])
+    respond_with(club, @team)
   end
 
   private

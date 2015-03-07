@@ -32,7 +32,7 @@ class SubSectionsController < ApplicationController
 
   def destroy
     @sub_section.destroy
-    respond_with([@sub_section.section, @sub_section])
+    respond_with(@sub_section.section, @sub_section)
   end
 
   private
