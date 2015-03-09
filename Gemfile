@@ -29,12 +29,12 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'autoprefixer-rails'
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-linkedin'
-gem "omniauth-google-oauth2"
+# gem 'devise'
+# gem 'omniauth'
+# gem 'omniauth-twitter'
+# gem 'omniauth-facebook'
+# gem 'omniauth-linkedin'
+# gem "omniauth-google-oauth2"
 
 gem 'simple_form', '~> 3.1.rc2'
 gem "nested_form"
@@ -49,6 +49,7 @@ gem 'mongoid_orderable'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'faker'
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'byebug'
@@ -56,5 +57,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'cucumber'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner', '~> 1.3.0'
   gem 'rb-fsevent' if `uname` =~ /Darwin/
 end

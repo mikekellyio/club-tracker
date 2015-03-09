@@ -5,6 +5,8 @@ class User
   has_many :identities
 
   field :name, type: String
+  field :email, type: String
+  field :encrypted_password, type: String
   validates_presence_of :name
   validates_uniqueness_of :name, :email, :case_sensitive => false
 
@@ -13,8 +15,8 @@ class User
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  # devise :database_authenticatable, :registerable,
+  #   :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
