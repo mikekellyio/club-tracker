@@ -21,7 +21,7 @@ require 'rails_helper'
 RSpec.describe TeamsController, :type => :controller do
   before do
     sign_in
-    [Club, Team].map &:delete_all
+    [Organization, Club, Team].map &:delete_all
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -35,7 +35,8 @@ RSpec.describe TeamsController, :type => :controller do
     {invalid: :invalid}
   }
 
-  let(:club) { Club.create name: "sparks"}
+  let(:org) { Organization.create name: "mbc" }
+  let(:club) { org.clubs.create name: "sparks"}
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in

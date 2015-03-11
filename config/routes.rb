@@ -12,9 +12,14 @@ Rails.application.routes.draw do
     resources :completed_sections, except: :update
   end
 
-  resources :clubs do
+  resources :organizations do
+    resources :clubs, only: [:index, :new, :create]
+  end
+
+  resources :clubs, only: [:show, :edit, :update, :destroy] do
     resources :teams
   end
+
 
   # devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup

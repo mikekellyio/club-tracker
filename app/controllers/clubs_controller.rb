@@ -4,7 +4,7 @@ class ClubsController < ApplicationController
   # GET /clubs
   # GET /clubs.json
   def index
-    @clubs = Club.all
+    @clubs = organization.clubs.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -23,7 +23,7 @@ class ClubsController < ApplicationController
 
   # GET /clubs/new
   def new
-    @club = Club.new
+    @club = organization.clubs.new
   end
 
   # GET /clubs/1/edit
@@ -33,7 +33,7 @@ class ClubsController < ApplicationController
   # POST /clubs
   # POST /clubs.json
   def create
-    @club = Club.new(club_params)
+    @club = organization.clubs.new(club_params)
 
     respond_to do |format|
       if @club.save
@@ -65,7 +65,7 @@ class ClubsController < ApplicationController
   def destroy
     @club.destroy
     respond_to do |format|
-      format.html { redirect_to clubs_url }
+      format.html { redirect_to organization_clubs_url(@club.organization) }
       format.json { head :no_content }
     end
   end
@@ -74,6 +74,14 @@ class ClubsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_club
       @club = Club.find(params[:id])
+    end
+
+    def organization_id
+      params.require(:organization_id)
+    end
+
+    def organization
+      @organization ||= Organization.find(organization_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
